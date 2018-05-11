@@ -1,0 +1,108 @@
+<!DOCTYPE html> 
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+	  <title>Pebble Config Editor - RomanPort.com</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+	  
+	  <!-- Icon crap -->
+		<link rel="apple-touch-icon" sizes="180x180" href="/resources/fav/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/resources/fav/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/resources/fav/favicon-16x16.png">
+		<link rel="manifest" href="/resources/fav/site.webmanifest">
+		<link rel="mask-icon" href="/resources/fav/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="/resources/fav/favicon.ico">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="/resources/fav/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+		<!-- End icon crap -->
+	  
+	  <link href="assets/v1/main.css" rel="stylesheet">
+	  
+	  <style id="customStyle">
+		
+	  </style>
+	  
+   </head>
+   <body style="margin:0; background-color:#e8ebed;" onload="OnLoad();" id="main">
+   
+	<div id="frontMsgBG" class="frontMsgBG frontMsgBG-disabled">
+	
+	</div>
+   
+   <div id="frontMsg" class="frontMsg ">
+   <div class="pebble_classic_button" style="width:150px; position:absolute; bottom:-64px;" onclick="ClosePopup(null); ResetApp();"> Cancel </div>
+	<div class="main-carousel" style="height:100%; width:526px; float:right;">
+		<div class="carousel-cell"><div style="font-size:20px; text-align:center; margin-top:80px;">Android Config</div><div style="font-size:15px; text-align:center; margin-top:20px">Setting up Android with the new config<br>is as easy as clicking a button.</div><div class="pebble_classic_button" style="margin:auto; width:200px; margin-top:60px;" onclick="AndroidPushConfigFinalBtn();"> Push </div><div style="font-size:13px; text-align:center; margin-top:5px; cursor:pointer;" id="havingIssuesAndroidBtn" onclick="AndroidPushConfigFinalBtnIssues();">Having issues?</div></div>
+	  <div class="carousel-cell"><div style="font-size:20px; text-align:center; margin-top:50px;">Pebble Config Setup</div><div style="font-size:15px; text-align:center; margin-top:20px;">(Swipe in the direction of your platform)</div><div class="t_platform_select">Android</div><div class="t_platform_select" style="float:right; text-align:right;">iOS</div></div>
+	  <div class="carousel-cell"><img src="ios_screenshots/0.png" height="400px;" style="float:right;"></img><div class="ios_t_text"><b>iOS Setup Step 1</b><br>While it is optional, I recommend reinstalling the Pebble app before starting. Pebble seems to heavily cache these things.</div></div>
+	  <div class="carousel-cell"><img src="ios_screenshots/1.png" height="400px;" style="float:right;"></img><div class="ios_t_text"><b>iOS Setup Step 2</b><br>Once that is done, go into the settings menu. In a blank spot, (somewhere without a button) tap five times with three fingers. This will pull up the hidden debug menu.</div></div>
+	  <div class="carousel-cell"><img src="ios_screenshots/2.png" height="400px;" style="float:right;"></img><div class="ios_t_text"><b>iOS Setup Step 3</b><br>Inside of this menu, tap the "Debug Settings" button.</div></div>
+	  <div class="carousel-cell"><img src="ios_screenshots/3.png" height="400px;" style="float:right;"></img><div class="ios_t_text"><b>iOS Setup Step 4</b><br>In the next menu, scroll to the bottom of the page. Tap the "Custom Remote Config Endpoint" button.</div></div>
+	  <div class="carousel-cell"><img src="ios_screenshots/4.png" height="400px;" style="float:right;"></img><div class="ios_t_text"><b>iOS Setup Step 5</b><br>In the text box, type the URL below. Then, press the okay button. <!--<div style="width:100%; height:45px; display: table;  background-color:#e4e4e4; margin-top:15px; border-radius:5px; font-size:15px; text-align:center;"><div style="display: table-cell; vertical-align: middle; font-family: 'Inconsolata', monospace;">Text</div></div>--><input type="text" style="width:100%; margin-top:15px;" value="" id="iosCopyURL"><div class="pebble_classic_button" style="margin:auto; width:50%; margin-top:15px;" onclick="CopyToClipboard('iosCopyURL');"> Copy URL </div></div></div>
+	  <div class="carousel-cell"><img src="ios_screenshots/5.png" height="400px;" style="float:right;"></img><div class="ios_t_text"><b>iOS Setup Step 6</b><br>Now, back out of all of the menu options until you're on the home page of the Pebble app. Now, exit the app and slide it out of the multitasking view. Then, hold the power button down <b>but do not shutdown!</b> Wait until the shutdown menu appears, then hold the home button until you are returned to the home screen. This will clear the cache and (hopefully) force the Pebble app to reload the config. </div></div>
+	</div>
+   </div>
+   
+    <div id="frontMsg_mini" class="frontMsg_mini">
+		
+    </div>
+   
+   <iframe id="downloader" style="display:none;"></iframe>
+   
+   <div id="popout" class="popout" style="display:none;">
+   
+   </div>
+   
+   
+   
+   
+	<div class="main_container " style="margin-top:30px;">
+		<div style="width:calc(100% - 20px); padding-left:10px; padding-right:10px; text-align:left; font-size:17px; border-bottom: 1px solid #d6d6d6;"><input type="text" id="name_input" class="editor_item_value_input" style="font-size:18px; height:68px; width:calc(100% - 180px);" value="Type in a Neat Name"><div class="pebble_classic_button main-button" id="toggle-advanced" style="float:right;" onclick="ToggleAdvanced();"> Advanced </div></div>
+		<div class="main_editor_window" id="editor" style="min-height:533px;"> 
+		
+		</div>
+		<div class="main_container_footer_btns">
+			<div style="float:left; color:#ff4700; padding:5px;">
+				<a style="color:#ff4700;  text-decoration: underline;" onclick="ShowAutoPR();">Using PebbleRipper?</a>
+			</div>
+			<!-- Bottom are most left -->
+			<div class="pebble_classic_button main-button" style="float:right;" id="confirm_btn" onclick="SendToPhoneBtn();"> Push To Phone </div>
+			<!--<div class="pebble_classic_button main-button" style="float:right;" onclick="DownloadJSONBtn();"> Download JSON </div>-->
+			<div class="pebble_classic_button button_disabled" id="restore_btn" style="float:right;" onclick="RestoreBtn();"> Restore </div>
+		</div>
+		<div class="loader"></div>
+	</div>
+	
+	<div class="main_container " style=" z-index:2; display:none; margin-top:30px;" id="recents_list">
+		
+		
+	</div>
+	
+	<div style="width:100%; height:50px;"></div>
+	
+	<div class="bottom_footer">
+			Created by <a href="https://romanport.com">Roman Port</a>
+			<br>
+			<span>
+				<br>
+				Not associated with Pebble or Fitbit
+				<br>
+				<a href="https://romanport.com/contact.html">Talk to me on Discord or Reddit</a>
+			</span>
+		</div>
+	
+	
+	
+	
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="assets/v1/main.js"></script>
+	
+   </body>
+</html>
